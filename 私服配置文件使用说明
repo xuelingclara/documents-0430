@@ -1,2 +1,0 @@
-把settings.xml放在${user.home}/.m2下，并修改${user.home}/.m2/settings.xml中的localRepository,并在Server中配置认证信息（用户名和密码）
-Maven缺省的本地仓库地址为${user.home}/.m2/repository 。一个用户会对应的拥有一个本地仓库。也可以自定义本地仓库的位置。
