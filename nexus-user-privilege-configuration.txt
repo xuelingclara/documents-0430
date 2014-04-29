@@ -3,7 +3,7 @@ others:snapshots crud role+releases/3rd read
 leader:snapshots crud role+releases/3rd party crud
 
 1.
-Security -> Privileges 创建3rd party,Release ,选择相应的repo和Repository Target为All(Maven2),点击“Save”后就能在列表中看到相应的增、删、改、查权限
+Security -> Privileges 创建3rd party,Releases,Snapshots,选择相应的repo和Repository Target为All(Maven2),点击“Save”后就能在列表中看到相应的增、删、改、查权限
 
 2.
 Security -> Roles (每行分别为RoleID,Name,Description)
@@ -41,3 +41,9 @@ Leader's Role Management:
 3rd Party CRUD Role
 Releases CRUD Role
 Snapshots CRUD Role
+
+
+UI:Base UI Privileges
+UI:Repository Browser
+UI:Search
+Repo:All Repositories(View)
