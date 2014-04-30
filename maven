@@ -1,0 +1,82 @@
+#root安装maven
+su
+cd /tmp
+wget -N http://192.168.0.159:8080/samba/files/apache-maven-3.0.5-bin.tar.gz
+tar -zxf apache-maven-3.0.5-bin.tar.gz
+mv apache-maven-3.0.5 /opt/maven
+echo 'export PATH=$PATH:/opt/maven/bin' >> /etc/profile
+source /etc/profile
+mvn -version
+ 
+(/etc/profile 只有root可以修改）
+ 
+exit
+在当前用户操作:
+source /etc/profile
+mvn
+（在用户目录下自动建立了.m2/repositories）
+ 
+#普通用户设置settings.xml
+mkdir -p $USER_HOME/.m2
+vi $USER_HOME/.m2/settings.xml #修改自己的username,password
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<localRepository>~/.m2/repository</localRepository>
+	<interactiveMode>true</interactiveMode>
+	<offline>false</offline>
+	<pluginGroups />
+	<proxies />
+	<servers>
+		<server>
+			<id>releases</id>
+			<username>username</username>
+			<password>password</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>username</username>
+			<password>password</password>
+		</server>
+		<server>
+			<id>thirdparty</id>
+			<username>username</username>
+			<password>password</password>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<url>http://192.168.0.159:8080/nexus/content/groups/public/</url>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<id>jdk-1.6</id>
+			<activation>
+				<jdk>1.6</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.source>1.6</maven.compiler.source>
+				<maven.compiler.target>1.6</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.6</maven.compiler.compilerVersion>
+			</properties>
+		</profile>
+	</profiles>
+</settings>
+ 
+ 
+ 
+#项目pom.xml中增加以下配置,可以deploy到nexus
+<distributionManagement>
+	<repository>
+		<id>releases</id>
+		<url>http://192.168.0.159:8080/nexus/content/repositories/releases/</url>
+	</repository>
+	<snapshotRepository>
+		<id>snapshots</id>
+		<url>http://192.168.0.159:8080/nexus/content/repositories/snapshots/</url>
+	</snapshotRepository>
+</distributionManagement>
