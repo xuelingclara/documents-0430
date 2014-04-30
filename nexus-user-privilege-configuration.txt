@@ -47,3 +47,13 @@ UI:Base UI Privileges
 UI:Repository Browser
 UI:Search
 Repo:All Repositories(View)
+
+
+或
+Roles 
+programmer和teamleader 直接赋予相关权限
+
+去除匿名用户所有权限
+role:把匿名用户所有权限加入到programmer和teamleader
+
+
